@@ -34,9 +34,17 @@ router.get('/list', async (req, res) => {
 });
 
 //rota para buscar um User no banco
-router.get('/find', async (req, res) => {
-    try{
+router.get('/find/:name', async (req, res) => {
+    const name = req.params.name;
 
+    try{
+        const user = await User.findOne({name});
+        if(user != null){
+            return res.status(200).send({user});
+        }
+        else{
+            return res.status(400).send({error: 'User not found'});
+        }
     } catch (err){
         return res.status(400).send({error: 'Operation failed'});
     }
