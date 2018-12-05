@@ -1,11 +1,9 @@
 const express = require('express');
-
 const User = require('../model/user');
-
 const router = express.Router();
 
 //route to save one user
-router.post('/register', async (req, res) => {
+router.post('/users', async (req, res) => {
     const {email} = req.body;
 
     try{
@@ -24,7 +22,7 @@ router.post('/register', async (req, res) => {
 });
 
 //route to return all users
-router.get('/list', async (req, res) => {
+router.get('/users', async (req, res) => {
     try{
         const users = await User.db.collection('users').find({}).toArray();
         res.send({users});
@@ -34,7 +32,7 @@ router.get('/list', async (req, res) => {
 });
 
 //route to find one user
-router.get('/find/:name', async (req, res) => {
+router.get('/users/:name', async (req, res) => {
     const name = req.params.name;
 
     try{
@@ -51,7 +49,7 @@ router.get('/find/:name', async (req, res) => {
 });
 
 //route to update one user
-router.put('/update/:id', async (req, res) => {
+router.put('/users/:id', async (req, res) => {
     const putData = {
         "id": req.params.id,
         "name": req.body.name,
@@ -74,7 +72,7 @@ router.put('/update/:id', async (req, res) => {
 });
 
 //route to delete one user
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/users/:id', async (req, res) => {
     const id = req.params.id;
 
     try{
