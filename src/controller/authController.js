@@ -4,7 +4,7 @@ const User = require('../model/user');
 
 const router = express.Router();
 
-//rota para salvar um User no banco
+//route to save one user
 router.post('/register', async (req, res) => {
     const {email} = req.body;
 
@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-//rota para retornar todos os User's do banco 
+//route to return all users
 router.get('/list', async (req, res) => {
     try{
         const users = await User.db.collection('users').find({}).toArray();
@@ -33,7 +33,7 @@ router.get('/list', async (req, res) => {
     }
 });
 
-//rota para buscar um User no banco
+//route to find one user
 router.get('/find/:name', async (req, res) => {
     const name = req.params.name;
 
@@ -47,6 +47,45 @@ router.get('/find/:name', async (req, res) => {
         }
     } catch (err){
         return res.status(400).send({error: 'Operation failed'});
+    }
+});
+
+//route to update one user
+router.put('/update/:id', async (req, res) => {
+    const putData = {
+        "id": req.params.id,
+        "name": req.body.name,
+        "email": req.body.email
+    };
+
+    const id = req.params.id;
+
+    try{
+        let user = await User.findById(id);
+        if(user._id == id){
+            if(await User.updateOne(putData)){
+                return res.status(200).send();
+            }
+        }
+
+    } catch (err){
+        return res.status(400).send({error: 'Operation failed'});
+    }
+});
+
+//route to delete one user
+router.delete('/delete/:id', async (req, res) => {
+    const id = req.params.id;
+
+    try{
+        let user = await User.findById(id);
+        if(user != null){
+            if(await User.deleteOne(user)){
+                return res.status(200).send();
+            }
+        }
+    }catch (err){
+        return res.status(400).send({error: 'Operation failed'});    
     }
 });
 
