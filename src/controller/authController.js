@@ -1,9 +1,7 @@
-const express = require('express');
 const User = require('../model/user');
-const router = express.Router();
 
-//route to save one user
-router.post('/users', async (req, res) => {
+//function to save one user
+exports.save = async (req, res) => {
     const {email} = req.body;
 
     try{
@@ -19,20 +17,20 @@ router.post('/users', async (req, res) => {
     } catch (err){
         return res.status(400).send({error: 'Registration failed'});
     }
-});
+};
 
-//route to return all users
-router.get('/users', async (req, res) => {
+//function to return all users
+exports.all = async (req, res) => {
     try{
         const users = await User.db.collection('users').find({}).toArray();
         res.send({users});
     } catch (err){
         return res.status(500).send({error: 'Operation failed'});
     }
-});
+};
 
-//route to find one user
-router.get('/users/:name', async (req, res) => {
+//function to find one user
+exports.find = async (req, res) => {
     const name = req.params.name;
 
     try{
@@ -46,10 +44,10 @@ router.get('/users/:name', async (req, res) => {
     } catch (err){
         return res.status(400).send({error: 'Operation failed'});
     }
-});
+};
 
-//route to update one user
-router.put('/users/:id', async (req, res) => {
+//function to update one user
+exports.update = async (req, res) => {
     const putData = {
         "id": req.params.id,
         "name": req.body.name,
@@ -69,10 +67,10 @@ router.put('/users/:id', async (req, res) => {
     } catch (err){
         return res.status(400).send({error: 'Operation failed'});
     }
-});
+};
 
-//route to delete one user
-router.delete('/users/:id', async (req, res) => {
+//function to delete one user
+exports.delete = async (req, res) => {
     const id = req.params.id;
 
     try{
@@ -85,6 +83,4 @@ router.delete('/users/:id', async (req, res) => {
     }catch (err){
         return res.status(400).send({error: 'Operation failed'});    
     }
-});
-
-module.exports = app => app.use('/auth', router);
+};
