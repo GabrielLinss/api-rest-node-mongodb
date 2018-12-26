@@ -1,3 +1,6 @@
-/users to save(POST) or return all(GET) users -> OK
-/users/:name to find(GET) one user -> OK
-/users/:id to update(PUT) or delete(DELETE) one user -> OK
+/auth/users to save(POST) or return all(GET) users -> OK
+/auth/users/:name to find(GET) one user -> OK
+/auth/users/:id to update(PUT) or delete(DELETE) one user -> OK
+/auth/users/authenticate to login(POST) with token -> OK
+/auth/users/forgot_password to send(POST) email for recovery password -> OK
+/auth/users/reset_password to send(POST) token to reset password -> OK
