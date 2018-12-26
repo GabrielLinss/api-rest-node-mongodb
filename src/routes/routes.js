@@ -22,4 +22,8 @@ router.delete('/users/:id', async (req, res) => {
     controller.delete(req, res);
 });
 
+router.post('/users/authenticate', async (req, res) => {
+    controller.authenticate(req, res);
+});
+
 module.exports = app => app.use('/auth', router);
