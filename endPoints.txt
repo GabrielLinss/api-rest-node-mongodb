@@ -1,8 +1,11 @@
+WITHOUT AUTHORIZATION ENDPOINTS:
 /auth/users to save(POST) or return all(GET) users -> OK
 /auth/users/:name to find(GET) one user -> OK
 /auth/users/:id to update(PUT) or delete(DELETE) one user -> OK
 /auth/users/authenticate to login(POST) with token -> OK
 /auth/users/forgot_password to send(POST) email for recovery password -> OK
 /auth/users/reset_password to send(POST) token to reset password -> OK
-/projects to return all(GET) saved projects or save(POST) one project with authorization -> OK
-/projects/:projectId to find(GET) or update(PUT) or delete(DELETE) one project with authorization -> OK
+
+WITH AUTHORIZATION ENDPOINTS:
+/projects to return all(GET) saved projects or save(POST) one project -> OK
+/projects/:projectId to find(GET) or update(PUT) or delete(DELETE) one project -> OK
