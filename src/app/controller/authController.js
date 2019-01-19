@@ -42,10 +42,10 @@ exports.all = async (req, res) => {
 
 //function to find one user
 exports.find = async (req, res) => {
-    const name = req.params.name;
+    const id = req.params.id;
 
     try{
-        const user = await User.findOne({name});
+        const user = await User.findById(id);
         if(user != null){
             return res.status(200).send({user});
         }
@@ -59,21 +59,12 @@ exports.find = async (req, res) => {
 
 //function to update one user
 exports.update = async (req, res) => {
-    const putData = {
-        "id": req.params.id,
-        "name": req.body.name,
-        "email": req.body.email
-    };
-
-    const id = req.params.id;
+    const { name, email } = req.body;
+    const { id } = req.params;
 
     try{
-        let user = await User.findById(id);
-        if(user._id == id){
-            if(await User.updateOne(putData)){
-                return res.status(200).send();
-            }
-        }
+        await User.findByIdAndUpdate(id, {name, email });
+        return res.status(200).send();
 
     } catch (err){
         return res.status(400).send({error: 'Operation failed'});

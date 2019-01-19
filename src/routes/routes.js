@@ -10,7 +10,7 @@ router.get('/users', async (req, res) => {
     controller.all(req, res);
 });
 
-router.get('/users/:name', async (req, res) => {
+router.get('/users/:id', async (req, res) => {
     controller.find(req, res);
 });
 
