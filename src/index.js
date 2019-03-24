@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
@@ -10,5 +11,5 @@ app.use(cors());
 require('./routes/routes')(app);
 require('./routes/projectRoutes')(app);
 
-app.listen(8000);
-console.log('Listening on port 8000');
+app.listen(process.env.PORT);
+console.log('Listening on port ', process.env.PORT);
